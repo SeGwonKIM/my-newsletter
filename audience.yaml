@@ -1,0 +1,50 @@
+# 독자·중요도 기준·소스 설정. 코드를 고치지 않고 이 파일만 바꿔 다른 분야로 옮긴다.
+
+newsletter:
+  name: 혼자 파는 사람들의 아침 브리핑
+  hours: 24            # 수집 time window (시간)
+  target: 5            # 최종 발행 건수 (3~5)
+  min_publish: 3       # 이보다 적게 통과하면 '건수 부족' 경고를 남긴다
+  batch: 30            # 예선 묶음 크기
+  survivors_per_batch: 8   # 묶음마다 예선 통과 건수 (넉넉하게)
+  max_per_source: 2        # 한 소스가 브리핑을 독차지하지 않게 (첫 LLM 실행에서 한 곳이 4/5 를 차지했다)
+  model: gpt-4.1-mini
+
+audience:
+  persona: >
+    스마트스토어·자사몰·SNS 로 디지털 상품이나 서비스를 혼자 파는 1인 창업자.
+    마케팅 대행사 없이 광고·콘텐츠·고객 응대를 직접 하고, 아침 10분 안에
+    "오늘 내 가게에 영향을 줄 소식"만 알고 싶어 한다.
+  importance: >
+    이번 주 안에 내 매출·광고비·운영 방식이 바뀔 만한 소식인가?
+  keep:
+    - 네이버·쿠팡·카카오·틱톡·인스타그램·유튜브·메타·구글 등 플랫폼의 정책·수수료·알고리즘·광고 상품 변화
+    - 소상공인·1인 창업자가 신청할 수 있는 정부·지자체 지원사업, 세금·규제 변화
+    - 혼자서 바로 써 볼 수 있는 마케팅 전술·도구(특히 AI 도구)와 그 근거 데이터
+    - 소비자 행동·검색 트렌드 변화를 보여 주는 조사 결과
+  drop:
+    - 대기업 실적 발표, 대형 투자유치·인수합병 소식
+    - 인사·행사·수상·MOU 같은 홍보성 소식
+    - 발표 예정·로드맵만 있고 실제 변화가 없는 소식
+    - 한국에서 쓸 수 없는 해외 한정 출시 (국내 도입 일정이 없는 것)
+    - 같은 회사의 비슷한 소식 여러 건 — 가장 중요한 하나만
+  # 소스 적합도(G4) 측정용 키워드. 제목에 하나라도 있으면 '독자 관련'으로 센다
+  keywords: [마케팅, 광고, 쇼핑, 커머스, 스마트스토어, 쿠팡, 네이버, 틱톡, 인스타, 유튜브, 메타,
+             SNS, 소상공인, 창업, 스타트업, 브랜드, 판매, 셀러, 고객, 콘텐츠, 크리에이터, 인플루언서,
+             marketing, ads, advertis, commerce, shop, seller, small business, creator, influencer,
+             tiktok, instagram, youtube, meta, google, seo, social, brand, founder, startup, entrepreneur]
+
+# 검토한 소스 후보 전체. adopted 는 tools/measure_sources.py 측정 결과로 정했다 (REPORT.md §2)
+sources:
+  - {name: 벤처스퀘어,         url: "https://www.venturesquare.net/feed",                adopted: true}
+  - {name: 플래텀,             url: "https://platum.kr/feed",                            adopted: true}
+  - {name: 모비인사이드,       url: "https://www.mobiinside.co.kr/feed/",                adopted: true}
+  - {name: Social Media Today, url: "https://www.socialmediatoday.com/feeds/news/",       adopted: true}
+  - {name: Marketing Dive,     url: "https://www.marketingdive.com/feeds/news/",         adopted: true}
+  - {name: Entrepreneur,       url: "https://www.entrepreneur.com/latest.rss",           adopted: false}
+  - {name: 바이라인네트워크,   url: "https://byline.network/feed/",                      adopted: false}
+  - {name: 스타트업투데이,     url: "https://startuptoday.kr/rss/allArticle.xml",        adopted: true}
+  - {name: 블로터,             url: "https://www.bloter.net/rss/allArticle.xml",         adopted: false}
+  - {name: Inc.,               url: "https://www.inc.com/rss",                           adopted: false}
+  - {name: Search Engine Land, url: "https://searchengineland.com/feed",                 adopted: false}
+  - {name: Shopify Blog,       url: "https://www.shopify.com/blog.atom",                 adopted: false}
